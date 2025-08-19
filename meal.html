@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Meal finder</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-orange-500  sticky top-0 z-50 text-white">
+        <div class="flex justify-between items-center px-4 py-3 ">
+            <!-- logo and title -->
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-utensils text-xl"></i>
+                <h1 class="text-2xl font-bold">Meal Finder</h1>
+
+            </div>
+            <nav>
+                <div class="relative">
+                    <button id="categoriebtn" class="text-2xl text-white focus:outline-none">
+                         <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <ul  id="categoriesbar" class="absolute -right-4 -top-5 mt-2 w-64 bg-white shadow-lg rounded-md p-2 hidden z-50">
+                              <!-- add the category names from api  -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- search bar -->
+
+            
+
+        </div>
+    </header>
+
+
+    <script src="./finder.js"></script>
+</body>
+</html>
