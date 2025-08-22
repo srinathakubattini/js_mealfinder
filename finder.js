@@ -107,3 +107,18 @@ searchInput.addEventListener("keyup", (e) => {
   if (e.key === "Enter") searchBtn.click();
 });
 
+// Fetch meals by category
+function fetchMealsByCategory(categoryName, description) {
+  const categoryDesc = document.getElementById("categoryDescription");
+  const mealsList = document.getElementById("mealsList");
+
+  mealsAfterSearching.classList.add("hidden");
+  mealsByCategory.classList.remove("hidden");
+
+  categoryDesc.innerHTML = `
+    <div>
+      <h3 class="text-lg font-bold text-orange-600 mb-2">${categoryName}</h3>
+      <p class="text-gray-600 text-sm">${description}</p>
+    </div>
+  `;
+}
