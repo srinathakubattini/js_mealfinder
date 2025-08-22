@@ -249,3 +249,11 @@ function showMealDetails(mealId) {
 
 }
 
+// Home button (breadcrumb house icon)
+homeBtn.addEventListener("click", () => {
+  mealdetails.classList.add("hidden");
+  mealsByCategory.classList.add("hidden");
+  mealsAfterSearching.classList.add("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
