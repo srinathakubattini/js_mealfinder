@@ -190,8 +190,61 @@ function showMealDetails(mealId) {
         </div>
         </div>
       `;
+      let ingredientName = document.createElement('div');
+      ingredientName.className="mt-4 bg-orange-500 text-white p-2 rounded shadow-sm";
+      ingredientName.innerHTML = `
+        <h3 class="text-2xl font-semibold mb-4 mx-4">Ingredients </h3>
+      `;
+      const ingredentsUl = document.createElement("ul");
+      ingredentsUl.className = "grid grid-cols-1 sm:grid-cols-2";
+      for (let i = 1; i <= 20; i++) {
+        const ingredient = mealData[`strIngredient${i}`];
+        if (ingredient && ingredient.trim()) {
+          const li = document.createElement("li");
+          li.innerHTML = `<div class="inline-flex items-center justify-center w-4 h-5 text-sm border-2 border-white bg-green-300 rounded-full">${i}</div>
+         <p class="inline">${ingredient}</p>`;
+          ingredentsUl.appendChild(li);
+        }
+      }
+      ingredientName.appendChild(ingredentsUl);
+      mealDetailsText.appendChild(ingredientName);
+      
 
-      gi
+      // Ingredients
+      const measureContainer = document.getElementById("measure");
+      measureContainer.innerHTML = `
+        <h3 class="text-2xl font-semibold text-orange-600 mb-4 mx-4">Measure: </h3>
+      `;
+      const ul = document.createElement("ul");
+      ul.className = "grid grid-cols-1 sm:grid-cols-2 text-gray-700 bg-gray-100 border-gray-500 border-2 mx-4 p-2";
+      for (let i = 1; i <= 20; i++) {
+        const measure = mealData[`strMeasure${i}`];
+        const ingredient = mealData[`strIngredient${i}`];
+        if (measure && measure.trim()) {
+          const li = document.createElement("li");
+          li.innerHTML = `<i class="fa-solid fa-spoon text-orange-500 mx-2"></i><p class="inline">${measure}</p>`;
+          ul.appendChild(li);
+        }
+      }
+      measureContainer.appendChild(ul);
+
+      // Instructions
+      const instructionsContainer = document.getElementById("instructions");
+      const steps = mealData.strInstructions
+      .split(/\r?\n/)        // Split by newline (handles both \n and \r\n)
+      .filter(Boolean);   
+      instructionsContainer.innerHTML = `
+      <h3 class="text-2xl font-semibold text-orange-600 mb-4">Instructions</h3>
+      <div>
+        ${steps.map(step => `
+          <div class="flex items-start mb-2">
+            <i class="fa-regular fa-square-check text-orange-500 mr-2 mt-1"></i>
+            <span class="text-gray-700 leading-relaxed">${step}</span>
+          </div>
+        `).join("")}
+      </div>
+    `;
+      
     });
 
 }
