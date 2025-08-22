@@ -121,4 +121,31 @@ function fetchMealsByCategory(categoryName, description) {
       <p class="text-gray-600 text-sm">${description}</p>
     </div>
   `;
+  mealsList.innerHTML = "";
+
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)
+    .then((res) => res.json())
+    .then((data) => {
+      mealsList.innerHTML = "";
+      if (!data.meals) {
+        mealsList.innerHTML = `<p class="text-gray-600">No meals found for "${categoryName}".</p>`;
+        return;
+      }
+      data.meals.forEach((meal) => {
+        const mealCard = document.createElement("div");
+        mealCard.className =
+          "bg-white shadow-md rounded overflow-hidden hover:shadow-xl transition cursor-pointer";
+        mealCard.innerHTML = `
+          <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-bold mb-2">${meal.strMeal}</h3>
+          </div>
+        `;
+        mealCard.addEventListener("click", () => {
+          showMealDetails(meal.idMeal);
+          window.scrollTo({ top: 408, behavior: "smooth" });
+        });
+        mealsList.appendChild(mealCard);
+      });
+    });
 }
