@@ -72,6 +72,32 @@ searchBtn.addEventListener("click", () => {
 
   mealsAfterSearching.classList.remove("hidden");
   mealsByCategory.classList.add("hidden");
-  
+  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
+    .then((res) => res.json())
+    .then((data) => {
+      mealResult.innerHTML = "";
+      if (!data.meals) {
+        mealResult.innerHTML = `<p class="text-gray-600">No meals found for "${mealName}".</p>`;
+        return;
+      }
+      data.meals.forEach((meal) => {
+        const mealCard = document.createElement("div");
+        mealCard.className =
+          "bg-white shadow-md rounded overflow-hidden hover:shadow-xl transition cursor-pointer";
+        mealCard.innerHTML = `
+          <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <p class="text-sm text-gray-600 mb-1">${meal.strArea}</p>
+            <h3 class="text-lg font-bold mb-2">${meal.strMeal}</h3>
+          </div>
+        `;
+        mealCard.addEventListener("click", () => {
+          showMealDetails(meal.idMeal);
+          window.scrollTo({ top: 408, behavior: "smooth" });
+        });
+        mealResult.appendChild(mealCard);
+      });
+    });
+    window.scrollTo({ top: 408, behavior: "smooth" });
 });
 
