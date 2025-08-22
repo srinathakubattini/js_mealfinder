@@ -1,8 +1,15 @@
-const caratbtn = document.getElementById("categoriebtn");
-const categorielist =document.getElementById("categoriesbar");
+const categoryList = document.getElementById("categories");
+const hamburgerBtn =document.getElementById("hamburgerBtn");
+const categoryThumbList = document.getElementById("categoriesList");
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
+const mealResult = document.getElementById("mealResult");
+const mealdetails = document.getElementById("mealDetails");
+const backBtn = document.getElementById("backBtn");
+const homeBtn = document.getElementById("homeBtn");
 
-caratbtn.addEventListener("click",()=>{
-    categorielist.classList.toggle("hidden");
+hamburgerBtn.addEventListener("click",()=>{
+    categoryList.classList.toggle("hidden");
 
 });
 fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
@@ -14,36 +21,32 @@ fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
 })
 .then(data => {
     
-    const categoriesorder = data.categories;
+    const categories = data.categories;
 
 
-    const closeitem=document.createElement("li");
-    closeitem.className ="flex justify-end px-2";
-    const closebtn=document.createElement("button");
-    closebtn.innerHTML='<i class="fa-solid fa-xmark text-gray-500 hover:text-red-500 text-md"></i>'
-    closebtn.addEventListener("click",()=>{
-        categorielist.classList.add("hidden");
+    const closeItem=document.createElement("li");
+    closeItem.className ="flex justify-end px-2";
+    const closeBtn=document.createElement("button");
+    closeBtn.innerHTML='<i class="fa-solid fa-xmark text-gray-500 hover:text-red-500 text-md"></i>'
+    closeBtn.addEventListener("click",()=>{
+        categoryList.classList.add("hidden");
     });
-    closeitem.appendChild(closebtn);
-    categorielist.appendChild(closeitem);
+    closeItem.appendChild(closeBtn);
+    categoryList.appendChild(closeItem);
 
 
     // add items in category by API
-    categoriesorder.forEach(category => {
-        const listitem =document.createElement("li");
-        const link =document.createElement("a");
-        link.textContent = category.strCategory
-        link.href ="#";
-        link.className = "text-base sm:text-lg md:text-xl text-gray-700 hover:text-orange-500";
-
-
-        listitem.className ="text-s px-4 hover:bg-gray-100 cursor-pointer";
-        listitem.appendChild(link);
-        const divided =document.createElement("hr");
-        divided.className ="border-gray-300 my-1";
-        categorielist.appendChild(listitem);
-        categorielist.appendChild(divided); 
-    });
+    const listItem = document.createElement("li");
+      listItem.className =
+        "block text-gray-700 text-s px-4 py-1 hover:bg-gray-100 cursor-pointer hover:text-orange-500";
+      listItem.textContent = strCategory;
+      listItem.addEventListener("click", () => {
+        categoryList.classList.add("hidden");
+        fetchMealsByCategory(strCategory, strCategoryDescription);
+        window.scrollTo({ top: 408, behavior: "smooth" });
+      });
+      categoryList.appendChild(listItem);
+      categoryList.appendChild(document.createElement("hr"));
 })
 .catch(err => {
   console.error("Fetch error:", err);
