@@ -62,11 +62,16 @@ fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
       categoryThumbList.appendChild(categoryThumb);
     });
 });
-.catch(err => {
-  console.error("Fetch error:", err);
-  const li = document.createElement("li");
-  li.textContent = "Failed to load categories.";
-  li.className = "px-4 py-2 text-red-500";
-  categoryList.appendChild(li);
+// Search meal by name
+searchBtn.addEventListener("click", () => {
+  const mealName = searchInput.value.trim();
+  if (!mealName) {
+    alert("Please enter a meal name to search.");
+    return;
+  }
+
+  mealsAfterSearching.classList.remove("hidden");
+  mealsByCategory.classList.add("hidden");
+  
 });
 
