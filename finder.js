@@ -13,12 +13,8 @@ hamburgerBtn.addEventListener("click",()=>{
 
 });
 fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
-.then(response =>{
-    if(!response.ok){
-        throw new Error("Network response was not ok" + response.statusText);
-    }
-    return response.json();
-})
+.then((res) =>res.json())
+
 .then(data => {
     
     const categories = data.categories;
@@ -33,7 +29,9 @@ fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
     });
     closeItem.appendChild(closeBtn);
     categoryList.appendChild(closeItem);
-
+    
+    categories.forEach((category) => {
+      const { strCategory, strCategoryDescription, strCategoryThumb } = category;
 
     // add items in category by API
     const listItem = document.createElement("li");
@@ -47,12 +45,28 @@ fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
       });
       categoryList.appendChild(listItem);
       categoryList.appendChild(document.createElement("hr"));
-})
+      // Thumbnail card
+      const categoryThumb = document.createElement("div");
+      categoryThumb.className =
+        "bg-white shadow-lg relative text-center cursor-pointer rounded-lg overflow-hidden hover:shadow-xl transition w-65 h-60";
+      categoryThumb.innerHTML = `
+        <img src="${strCategoryThumb}" alt="${strCategory}" class="w-full h-60 object-cover p-2">
+        <div class="absolute py-1 px-2 text-sm text-white bg-orange-500 rounded top-0 right-0 m-1">${strCategory}</div>
+      `;
+      categoryThumb.addEventListener("click", () =>{
+        mealsAfterSearching.classList.add("hidden");
+        mealdetails.classList.add("hidden");
+        fetchMealsByCategory(strCategory, strCategoryDescription);
+        window.scrollTo({ top: 408, behavior: "smooth" });
+    });
+      categoryThumbList.appendChild(categoryThumb);
+    });
+});
 .catch(err => {
   console.error("Fetch error:", err);
   const li = document.createElement("li");
   li.textContent = "Failed to load categories.";
   li.className = "px-4 py-2 text-red-500";
-  categorielist.appendChild(li);
+  categoryList.appendChild(li);
 });
 
