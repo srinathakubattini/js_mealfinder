@@ -149,3 +149,11 @@ function fetchMealsByCategory(categoryName, description) {
       });
     });
 }
+// Show meal details
+function showMealDetails(mealId) {
+  mealdetails.classList.remove("hidden");
+  mealsByCategory.classList.add("hidden");
+  mealsAfterSearching.classList.add("hidden");
+  
+}
+
