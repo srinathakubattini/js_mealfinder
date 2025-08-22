@@ -7,6 +7,8 @@ const mealResult = document.getElementById("mealResult");
 const mealdetails = document.getElementById("mealDetails");
 const backBtn = document.getElementById("backBtn");
 const homeBtn = document.getElementById("homeBtn");
+const mealsByCategory = document.getElementById("mealsByCategory");
+const mealsAfterSearching = document.getElementById("mealsAfterSearching");
 
 hamburgerBtn.addEventListener("click",()=>{
     categoryList.classList.toggle("hidden");
@@ -99,5 +101,9 @@ searchBtn.addEventListener("click", () => {
       });
     });
     window.scrollTo({ top: 408, behavior: "smooth" });
+});
+// Enter key search
+searchInput.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") searchBtn.click();
 });
 
